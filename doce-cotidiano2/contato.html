@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Doce Cotidiano</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
+<body>
+
+    <header>
+        <nav id="navbar">
+            <i class="fa-solid fa-cupcake" id="nav_logo"> Doce Cotidiano</i> <!-- Logo com ícone de cupcake -->
+            <ul id="nav_list">
+                <li class="nav-item">
+                    <a href="index.html">Início</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="contato.html">Contato</a>
+                </li>
+            </ul>
+            <button id="mobile_btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <div id="mobile_menu">
+            <ul id="mobile_nav_list">
+                <li class="nav-item">
+                    <a href="index.html">Início</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="contato.html">Contato</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Seção de Contato -->
+    <main id="content">
+        <section id="contato" class="container">
+            <div class="form-container">
+                <h1>Entre em Contato</h1>
+                <p>Se você tiver dúvidas, sugestões ou quiser fazer um pedido, preencha o formulário abaixo:</p>
+
+                <div id="feedback" class="alert d-none"></div>
+
+                <!-- Formulário de Contato -->
+                <form id="form-contato">
+                    <div class="form-group">
+                        <label for="nome">Seu Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">Seu Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensagem">Sua Mensagem:</label>
+                        <textarea id="mensagem" name="mensagem" class="form-control" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-default">Enviar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div id="footer_items">
+            <span id="copyright">
+                &copy; 2024 Doce Cotidiano RS
+            </span>
+
+            <div class="social-media-buttons">
+                <a href="https://wa.me/5551999132126" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/docecotidiano.rs" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/docecotidiano.rs" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para processar o envio do formulário -->
+    <script>
+        document.getElementById('form-contato').addEventListener('submit', function(event) {
+            event.preventDefault();  // Impede o envio padrão do formulário
+
+            const nome = document.getElementById('nome').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const mensagem = document.getElementById('mensagem').value.trim();
+            const feedback = document.getElementById('feedback');
+
+            // Validação dos campos
+            if (!nome || !telefone || !mensagem) {
+                feedback.classList.remove('d-none');
+                feedback.classList.add('alert-danger');
+                feedback.textContent = 'Por favor, preencha todos os campos.';
+                return;
+            }
+
+            // Criação da mensagem final para o WhatsApp
+            const mensagemFinal = `Olá, meu nome é ${nome}. Meu telefone é ${telefone}. Abaixo está minha mensagem:\n\n${mensagem}`;
+
+            // Gerar o link para o WhatsApp
+            const whatsappUrl = `https://wa.me/5551999132126?text=${encodeURIComponent(mensagemFinal)}`;
+
+            // Redireciona para o WhatsApp
+            window.location.href = whatsappUrl;
+
+            // Feedback de sucesso
+            feedback.classList.remove('d-none');
+            feedback.classList.add('alert-success');
+            feedback.textContent = 'Mensagem enviada com sucesso! Redirecionando para o WhatsApp...';
+        });
+    </script>
+
+</body>
+
+</html>
